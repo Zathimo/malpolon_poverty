@@ -41,17 +41,19 @@ def main(cfg: DictConfig) -> None:
         hydra config dictionary created from the .yaml config file
         associated with this script.
     """
-    for fold in range(5):
-        print("Training fold ", fold + 1)
+    for fold in 'ABCDE':
+        print("Training fold ", fold)
 
         log_dir = hydra.core.hydra_config.HydraConfig.get().runtime.output_dir
-        log_dir = os.path.join(log_dir, f"fold_{fold + 1}")
+        log_dir = os.path.join(log_dir, f"fold_{fold}")
         logger_csv = pl.loggers.CSVLogger(log_dir, name="", version="")
         logger_csv.log_hyperparams(cfg)
         logger_tb = pl.loggers.TensorBoardLogger(log_dir, name="tensorboard_logs", version="")
         logger_tb.log_hyperparams(cfg)
 
-        datamodule = PovertyDataModule(**cfg.data, **cfg.task, fold=fold + 1)
+        fold_dict = pd.read_pickle('examples/poverty/dhs_incountry_folds_2013+.pkl')
+
+        datamodule = PovertyDataModule(**cfg.data, **cfg.task, fold=fold, fold_dict=fold_dict)
         model = RegressionSystem(cfg.model, **cfg.optimizer, **cfg.task)
 
         callbacks = [
@@ -144,4 +146,4 @@ def test(cfg: DictConfig) -> None:
 
 
 if __name__ == "__main__":
-    swap_observation_columns_csv('examples/poverty/dataset/observation_2013+.csv', 'examples/poverty/dataset/observation_2013+.csv')
+    main()

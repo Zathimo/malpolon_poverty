@@ -47,6 +47,7 @@ class PovertyDataModule(BaseDataModule):
             inference_batch_size: int = 16,
             num_workers: int = 8,
             fold: int = 1,
+            fold_dict: dict = FOLD,
             cach_data: bool = True,
             transform=None,
             **kwargs
@@ -66,9 +67,9 @@ class PovertyDataModule(BaseDataModule):
         super().__init__()
         dataframe = pd.read_csv(dataset_path + labels_name)
         self.dataframe = dataframe
-        self.dataframe_train = dataframe[dataframe['fold'].isin(FOLD[fold][0])]
-        self.dataframe_val = dataframe[dataframe['fold'].isin(FOLD[fold][1])]
-        self.dataframe_test = dataframe[dataframe['fold'].isin(FOLD[fold][2])]
+        self.dataframe_train = dataframe.iloc[fold_dict[fold]['train']]
+        self.dataframe_val = dataframe.iloc[fold_dict[fold]['val']]
+        self.dataframe_test = dataframe.iloc[fold_dict[fold]['test']]
         self.tif_dir = dataset_path + tif_dir
         self.train_batch_size = train_batch_size
         self.inference_batch_size = inference_batch_size
