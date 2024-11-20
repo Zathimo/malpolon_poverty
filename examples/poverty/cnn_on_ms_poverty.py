@@ -54,7 +54,7 @@ def main(cfg: DictConfig) -> None:
         fold_dict = pd.read_pickle('examples/poverty/dhs_incountry_folds_2013+.pkl')
 
         datamodule = PovertyDataModule(**cfg.data, **cfg.task, fold=fold, fold_dict=fold_dict)
-        model = RegressionSystem(cfg.model, **cfg.optimizer, **cfg.task)
+        model = RegressionSystem(cfg.model, **cfg.optim, **cfg.task)
 
         callbacks = [
             Summary(),

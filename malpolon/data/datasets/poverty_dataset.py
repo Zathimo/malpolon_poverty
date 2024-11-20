@@ -21,8 +21,7 @@ import datetime
 
 
 # Folds for the Poverty dataset
-FOLD = {1: (['A', 'B', 'C'], ['D'], ['E']), 2: (['B', 'C', 'D'], ['E'], ['A']), 3: (['C', 'D', 'E'], ['A'], ['B']),
-        4: (['D', 'E', 'A'], ['B'], ['C']), 5: (['E', 'A', 'B'], ['C'], ['D'])}
+FOLD = pd.read_pickle('examples/poverty/dhs_incountry_folds_2013+.pkl')
 
 
 class JitterCustom:

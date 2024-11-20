@@ -179,6 +179,7 @@ def check_scheduler(scheduler: Union[LRScheduler, dict],
         if 'lr_scheduler_config' in v and v['lr_scheduler_config'] is not None:
             lr_sch_config = lr_sch_config | v['lr_scheduler_config']
         if 'callable' in v:
+            print(v)
             v['callable'] = eval(v['callable'])
         else:
             v['callable'] = SCHEDULER_CALLABLES[k]
