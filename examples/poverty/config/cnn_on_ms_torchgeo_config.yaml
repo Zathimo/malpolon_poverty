@@ -8,8 +8,8 @@ run:
 
 data:
   num_classes: 1
-  dataset_path: examples/poverty/dataset/
-  labels_name: observation_2013+.csv
+  dataset_path: C:\Users\Isabelle\Documents\dhs\src\data\
+  labels_name: filtered_areas_of_interest.csv
   train_batch_size: 64
   inference_batch_size: 64
   num_workers: 8
@@ -37,7 +37,7 @@ model:
     global_pool: null
   modifiers:
     change_first_convolutional_layer:
-      num_input_channels: 7
+      num_input_channels: 19
     change_last_layer:
       num_outputs: 1
 
@@ -56,9 +56,10 @@ optim:
             monitor: loss/val  # ['loss/train', 'loss/val', '<metric>/train', '<metric>/val', ...]
 
   metrics:
-    regression_R2score:
+    r2:
       callable: "Fmetrics.regression.r2_score"
-      kwargs: null
+      kwargs:
+        multioutput: "uniform_average"
 
 miscellaneous:
   test

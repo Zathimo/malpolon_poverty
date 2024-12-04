@@ -39,7 +39,7 @@ class JitterCustom:
 class PovertyDataModule(BaseDataModule):
     def __init__(
             self,
-            tif_dir: str = 'landsat_tiles/',
+            tif_dir: str = '',
             dataset_path: str = 'examples/poverty/dataset/',
             labels_name: str = 'observation_2013+.csv',
             train_batch_size: int = 32,
@@ -219,7 +219,7 @@ class MSDataset(Dataset):
                                  str(row.cluster) + ".tif"
                                  )
 
-        tile = np.empty([7, 255, 255])
+        tile = np.empty([19, 255, 255])
 
         with rasterio.open(tile_name) as src:
 
