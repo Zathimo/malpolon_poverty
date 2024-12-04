@@ -22,7 +22,6 @@ setup(name="malpolon",
         "Topic :: Scientific/Engineering :: GIS"
       ],
       packages=find_packages(
-       where=".",
        include="malpolon*",
        exclude="malpolon.tests"),
       package_data={'malpolon.data.datasets._data': ['minigeolifeclef2022_species_details.csv']},
